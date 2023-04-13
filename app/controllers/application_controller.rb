@@ -23,4 +23,24 @@ class ApplicationController < ActionController::API
   def set_current_user
     Current.user = User.find(1)
   end
+
+  def set_pagination_header(name)
+    relation = instance_variable_get("@#{name}")
+
+    page = {}
+    page[:next] = relation.current_page + 1 unless relation.last_page?
+    page[:prev] = relation.current_page - 1 unless relation.first_page?
+
+    links = []
+
+    page.each do |key, value|
+      uri = URI.parse(request.original_url)
+      new_params = URI.decode_www_form(uri.query || '') + [[:page, value]]
+      uri.query = URI.encode_www_form(new_params)
+
+      links << "<#{uri}>; rel=\"#{key}\""
+    end
+
+    headers["Link"] = links.join(", ") unless links.empty?
+  end
 end
