@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :v1 do
+    namespace :me do
+      post "sleep", to: "sleeps#create"
+      post "wake_up", to: "wake_ups#create"
+    end
+  end
 end
