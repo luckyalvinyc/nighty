@@ -9,4 +9,19 @@ class Analytic < ApplicationRecord
       analytic.save
     end
   end
+
+  def self.rank_by_sleep_duration(user)
+    includes(:user)
+      .joins(user: :followers)
+      .where('follows.follower' => user)
+      .order(duration: :desc)
+  end
+
+  def serialize
+    {
+      id: id,
+      user: user.name,
+      duration: ActiveSupport::Duration.build(duration).inspect
+    }
+  end
 end
