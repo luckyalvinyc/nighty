@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_13_072028) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_101742) do
   create_table "activities", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "slept_at", null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_072028) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_follows_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -27,4 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_072028) do
   end
 
   add_foreign_key "activities", "users"
+  add_foreign_key "follows", "users", column: "followed_id"
+  add_foreign_key "follows", "users", column: "follower_id"
 end
