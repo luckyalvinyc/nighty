@@ -4,6 +4,12 @@ class User < ApplicationRecord
 
   has_many :following, foreign_key: :follower_id, class_name: "Follow"
 
+  class NotFound < Nighty::NotFound
+    def initialize(id)
+      super("User #{id} does not exist.")
+    end
+  end
+
   def sleep!
     activity = latest_activity
 

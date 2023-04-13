@@ -14,9 +14,9 @@ class V1::Users::FollowsController < ApplicationController
   private
 
   def user
-    @user ||= User.find_by!(id: params[:user_id])
+    User.find(params[:user_id])
   rescue ActiveRecord::RecordNotFound
-    raise Nighty::NotFound, "User #{params[:user_id]} does not exist."
+    raise User::NotFound, params[:user_id]
   end
 
   def ok
