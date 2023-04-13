@@ -1,12 +1,17 @@
 class ApplicationController < ActionController::API
   before_action :set_current_user
 
-  rescue_from Nighty::BadRequest do |exception|
-    data = {
-      message: exception.message
-    }
+  {
+    Nighty::BadRequest => :bad_request,
+    Nighty::NotFound => :not_found
+  }.each do |klass, status|
+    rescue_from klass do |exception|
+      data = {
+        message: exception.message
+      }
 
-    render json: data, status: :bad_request
+      render json: data, status: status
+    end
   end
 
   private
