@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_one :analytic
-  has_many :activities
+  has_many :activities, -> { order(slept_at: :desc) }
 
   has_many :followers, foreign_key: :followed_id, class_name: "Follow"
   has_many :following, foreign_key: :follower_id, class_name: "Follow"

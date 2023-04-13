@@ -5,11 +5,14 @@ Rails.application.routes.draw do
       post "wake_up", to: "wake_ups#create"
 
       get "analytics", to: "analytics#index"
+      get "activities", to: "activities#index"
     end
 
     resources :users, only: [] do
       post "follows", to: "users/follows#create"
       delete "follows", to: "users/follows#destroy"
+
+      get "activities", to: "users/activities#index"
     end
   end
 end
