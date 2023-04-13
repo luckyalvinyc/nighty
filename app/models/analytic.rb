@@ -13,7 +13,7 @@ class Analytic < ApplicationRecord
   def self.rank_by_sleep_duration(user)
     includes(:user)
       .joins(user: :followers)
-      .where('follows.follower' => user)
+      .where("follows.follower" => user)
       .order(duration: :desc)
   end
 

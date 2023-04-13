@@ -26,7 +26,7 @@ class V1::Me::ActivitiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should add the next page to the Link response header" do
-    get v1_me_activities_url, params: { per_page: 1 }
+    get v1_me_activities_url, params: {per_page: 1}
 
     activities = JSON.parse(body)
 
@@ -39,7 +39,7 @@ class V1::Me::ActivitiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should add the previous page to the Link response header" do
-    get v1_me_activities_url, params: { page: 2, per_page: 1 }
+    get v1_me_activities_url, params: {page: 2, per_page: 1}
 
     activities = JSON.parse(body)
 

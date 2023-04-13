@@ -13,7 +13,7 @@ class V1::Me::SleepsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal activities.size, 1
     assert_equal activities.first.keys, %w[id slept_at woke_up_at]
-    assert_nil activities.first['woke_up_at']
+    assert_nil activities.first["woke_up_at"]
     assert_equal status, 201
   end
 

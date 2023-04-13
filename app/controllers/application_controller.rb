@@ -35,7 +35,7 @@ class ApplicationController < ActionController::API
 
     page.each do |key, value|
       uri = URI.parse(request.original_url)
-      new_params = URI.decode_www_form(uri.query || '') + [[:page, value]]
+      new_params = URI.decode_www_form(uri.query || "") + [[:page, value]]
       uri.query = URI.encode_www_form(new_params)
 
       links << "<#{uri}>; rel=\"#{key}\""
