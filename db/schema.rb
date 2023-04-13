@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_13_101742) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_13_115858) do
   create_table "activities", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "slept_at", null: false
@@ -18,6 +18,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_101742) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "analytics", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_analytics_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -37,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_101742) do
   end
 
   add_foreign_key "activities", "users"
+  add_foreign_key "analytics", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
 end
