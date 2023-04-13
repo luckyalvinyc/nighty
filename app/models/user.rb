@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one :analytic
   has_many :activities
 
   has_many :following, foreign_key: :follower_id, class_name: "Follow"
@@ -17,6 +18,8 @@ class User < ApplicationRecord
 
       activity.woke_up_at = Time.current
       activity.save
+
+      Analytic.record(activity)
     end
   end
 
