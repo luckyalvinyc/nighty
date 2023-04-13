@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :activities
 
+  has_many :following, foreign_key: :follower_id, class_name: "Follow"
+
   def sleep!
     activity = latest_activity
 
@@ -22,6 +24,22 @@ class User < ApplicationRecord
     activities
       .order(slept_at: :desc)
       .limit(20)
+  end
+
+  def follow!(other)
+    raise Nighty::BadRequest, "Cannot follow self." if other.eql? self
+
+    following.create(followed: other)
+  rescue ActiveRecord::RecordNotUnique
+    raise Nighty::BadRequest, "Already followed the user."
+  end
+
+  def unfollow!(other)
+    record = following.find_by(followed: other)
+
+    raise Nighty::BadRequest, "Already unfollowed the user." if record.nil?
+
+    record.destroy!
   end
 
   private
