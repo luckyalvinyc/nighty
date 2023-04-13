@@ -1,8 +1,8 @@
 class V1::Me::SleepsController < ApplicationController
   def create
     Current.user.sleep!
-    activities = Current.user.last_20_activities.map(&:serialize)
+    activities = Current.user.last_20_activities
 
-    render json: activities, status: :created
+    render json: activities.map(&:serialize), status: :created
   end
 end
