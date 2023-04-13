@@ -31,9 +31,7 @@ class User < ApplicationRecord
   end
 
   def last_20_activities
-    activities
-      .order(slept_at: :desc)
-      .limit(20)
+    activities.limit(20)
   end
 
   def follow!(other)
