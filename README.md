@@ -1,24 +1,17 @@
-# README
+# Nighty
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Nighty is a sleep app designed to help you fall asleep faster and wake up feeling refreshed. You can also follow other people and check their sleep activities.
 
-Things you may want to cover:
+# Setup
 
-* Ruby version
+The command below will do the following:
 
-* System dependencies
+- Install dependencies
+- Prepare database
+- Populate users
 
-* Configuration
+```sh
+$ ./bin/setup
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Tested using Ruby 3.2.2
