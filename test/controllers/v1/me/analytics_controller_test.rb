@@ -11,29 +11,31 @@ class V1::Me::AnalyticsControllerTest < ActionDispatch::IntegrationTest
     lucky.follow!(john)
     lucky.follow!(doe)
 
-    alvin.sleep!
-    john.sleep!
-    doe.sleep!
+    travel_to 1.day.ago do
+      alvin.sleep!
+      john.sleep!
+      doe.sleep!
+    end
 
-    travel_to Time.current + 1.day + 5.minutes do
+    travel_to 1.day.ago + 5.minutes do
       alvin.wake_up!
     end
 
-    travel_to Time.current + 5.hours do
+    travel_to 1.day.ago + 5.hours do
       john.wake_up!
     end
 
-    travel_to Time.current + 8.hours do
+    travel_to 2.weeks.ago + 8.hours do
       doe.wake_up!
     end
   end
 
-  test "should list all friends sleep duration" do
+  test "should list all friends sleep duration for the past 1 week" do
     get v1_me_analytics_url
 
     analytics = JSON.parse(body)
 
-    assert_equal analytics.size, 3
+    assert_equal analytics.size, 2
     assert_nil headers["Link"]
     assert_equal status, 200
   end

@@ -14,6 +14,7 @@ class Analytic < ApplicationRecord
     includes(:user)
       .joins(user: :followers)
       .where("follows.follower" => user)
+      .where(updated_at: 1.week.ago..Time.current)
       .order(duration: :desc)
   end
 
